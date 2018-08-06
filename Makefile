@@ -1,12 +1,12 @@
 ORGANIZATION_NAME='intoto'
 
 base:
-	docker build -f base/Dockerfile -t $(ORGANIZATION_NAME)/base .
+	pushd base && docker build -f Dockerfile -t $(ORGANIZATION_NAME)/base . && popd
 
 verifier: base
-	docker build -f verifier/Dockerfile -t $(ORGANIZATION_NAME)/verifier .
+	pushd verifier && docker build -f Dockerfile -t $(ORGANIZATION_NAME)/verifier . && popd
 
 functionary: base
-	docker build -f functionary/Dockerfile -t $(ORGANIZATION_NAME)/functionary .
+	pushd functionary && docker build -f Dockerfile -t $(ORGANIZATION_NAME)/functionary . && popd
 
 .PHONY: base
