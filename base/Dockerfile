@@ -9,6 +9,3 @@ RUN pip install in-toto colorama
 
 RUN mkdir /workspace
 WORKDIR /workspace
-
-ADD minimal_sample.py /usr/share/in-toto/samples/minimal_sample.py
-ADD complete_sample.py /usr/share/in-toto/samples/complete_sample.py
