@@ -11,7 +11,7 @@ RUN pip install --user -r requirements-pinned.txt
 RUN pip install --user in-toto
 
 FROM alpine:3.14 AS built-image
-LABEL maintainer="Santiago Torres Arias <santiago@nyu.edu>"
+LABEL maintainer="Santiago Torres Arias <santiagotorres@purdue.edu>"
 
 RUN apk update && apk add python3
 COPY --from=base-image /root/.local /root/.local
