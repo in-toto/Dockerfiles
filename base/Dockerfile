@@ -1,11 +1,20 @@
-FROM alpine:3.8
-LABEL maintainer="Santiago Torres Arias <santiago@nyu.edu>"
+FROM alpine:3.14 as base-image
 
-RUN apk update && apk add python2 python2-dev py2-pip build-base py2-cffi libressl-dev
+RUN apk update && apk add python3 python3-dev py3-pip build-base py3-cffi libressl-dev libffi-dev
+RUN pip install --upgrade pip && pip install wheel
+WORKDIR /root
+# install latest pinned requirements available from in-toto repo
+# by doing this via '--user' we keep all libs/wheels in ~/.local
+# which can be easily copied into our second stage of the image build
+RUN wget https://github.com/in-toto/in-toto/raw/develop/requirements-pinned.txt
+RUN pip install --user -r requirements-pinned.txt
+RUN pip install --user in-toto
 
-# FIXME: colorama shouldn't be there, but the upstream dependency is broken
-# until the next release.
-RUN pip install in-toto colorama
+FROM alpine:3.14 AS built-image
+LABEL maintainer="Santiago Torres Arias <santiagotorres@purdue.edu>"
 
+RUN apk update && apk add python3
+COPY --from=base-image /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
 RUN mkdir /workspace
 WORKDIR /workspace
