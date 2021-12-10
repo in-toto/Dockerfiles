@@ -1,4 +1,4 @@
 FROM intoto/base:latest
-LABEL maintainer="Santiago Torres Arias <santiago@nyu.edu>"
+LABEL maintainer="Santiago Torres Arias <santiagotorres@purdue.edu>"
 
 ENTRYPOINT ["in-toto-verify"]
