@@ -1,4 +1,4 @@
-FROM alpine:3.15.2 as base-image
+FROM alpine:3.15.3 as base-image
 
 RUN apk update && apk add python3 python3-dev py3-pip build-base py3-cffi libressl-dev libffi-dev
 RUN pip install --upgrade pip && pip install wheel
@@ -15,7 +15,7 @@ RUN wget https://github.com/in-toto/in-toto/raw/develop/requirements-pinned.txt
 RUN pip install --user --force-reinstall -r requirements-pinned.txt
 RUN pip install --user in-toto
 
-FROM alpine:3.15.2 AS built-image
+FROM alpine:3.15.3 AS built-image
 LABEL maintainer="Santiago Torres Arias <santiagotorres@purdue.edu>"
 
 RUN apk update && apk add python3
